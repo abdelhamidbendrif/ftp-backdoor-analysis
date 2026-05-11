@@ -1,4 +1,4 @@
-# TP Penetration Testing — Kali Linux vs Metasploitable 2
+# Penetration Testing — Kali Linux vs Metasploitable 2
 
 ## Lab Environment
 - Attacker machine: Kali Linux — 10.0.2.15
